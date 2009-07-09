@@ -71,14 +71,14 @@ if $0 =~ /bacon/ or __FILE__ == $0
     end
 
     should 'create direct exchanges' do
-      @mq.direct.name.should == 'amq.direct'
-      @mq.direct(nil).name.should =~ /^\d+$/
-      @mq.direct('name').name.should == 'name'
+      @mq.direct.amqp_name.should == 'amq.direct'
+      @mq.direct(nil).amqp_name.should =~ /^\d+$/
+      @mq.direct('name').amqp_name.should == 'name'
     end
 
     should 'create fanout and topic exchanges' do
-      @mq.fanout.name.should == 'amq.fanout'
-      @mq.topic.name.should == 'amq.topic'
+      @mq.fanout.amqp_name.should == 'amq.fanout'
+      @mq.topic.amqp_name.should == 'amq.topic'
     end
 
     should 'create queues' do

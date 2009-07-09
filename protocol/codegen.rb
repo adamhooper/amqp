@@ -73,8 +73,8 @@ puts ERB.new(%q[
           
           def properties() @properties ||= [] end
 
-          def id()   self::ID end
-          def name() self::NAME end
+          def amqp_id()   self::ID end
+          def amqp_name() self::NAME end
         end
 
         class Method
@@ -90,9 +90,9 @@ puts ERB.new(%q[
             
             def arguments() @arguments ||= [] end
 
-            def parent() Protocol.const_get(self.to_s[/Protocol::(.+?)::/,1]) end
-            def id()     self::ID end
-            def name()   self::NAME end
+            def amqp_parent() Protocol.const_get(self.to_s[/Protocol::(.+?)::/,1]) end
+            def amqp_id()     self::ID end
+            def amqp_name()   self::NAME end
           end
 
           def == b
@@ -111,8 +111,8 @@ puts ERB.new(%q[
               def self.inherited klass
                 klass.const_set(:ID, #{id})
                 klass.const_set(:NAME, :#{name.to_s})
-                klass.parent.methods[#{id}] = klass
-                klass.parent.methods[klass::NAME] = klass
+                klass.amqp_parent.methods[#{id}] = klass
+                klass.amqp_parent.methods[klass::NAME] = klass
               end
             ]
           end

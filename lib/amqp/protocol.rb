@@ -32,8 +32,8 @@ module AMQP
 
       def to_binary
         buf = Buffer.new
-        buf.write :short, self.class.parent.id
-        buf.write :short, self.class.id
+        buf.write :short, self.class.amqp_parent.amqp_id
+        buf.write :short, self.class.amqp_id
 
         bits = []
 
@@ -121,7 +121,7 @@ module AMQP
       
       def to_binary
         buf = Buffer.new
-        buf.write :short, klass.id
+        buf.write :short, klass.amqp_id
         buf.write :short, weight # XXX rabbitmq only supports weight == 0
         buf.write :longlong, size
         buf.write :properties, (klass.properties.map do |type, name|
